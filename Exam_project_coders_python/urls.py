@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from exam_app.views import AuctionListView, AuctionAddView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('auctionlist/', AuctionListView.as_view(), name='auction-list'),
+    path('auctionadd/', AuctionAddView.as_view(), name='auction-add'),
 ]
