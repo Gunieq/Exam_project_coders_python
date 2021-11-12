@@ -1,8 +1,10 @@
 from datetime import datetime
 
+import username
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -37,23 +39,36 @@ class AuctionAddView(View):
         start_date = datetime.now()
         end_date = request.POST.get("end_date", )
         Auction.objects.create(name=name, product=product, start_date=start_date, end_date=end_date)
-        return redirect("auctionlist")
+        return redirect("auction-list")
 
 
 # View which allows to add an user
-class AddUserView(PermissionRequiredMixin, FormView):
-    template_name = 'add_user.html'
-    success_url = reverse_lazy('auction-list')
-    form_class = AddUserForm
-    permission_required = 'auth.add_user'
+class AddUserView(View):
+    # template_name = 'add_user.html'
+    # success_url = reverse_lazy('auction-list')
+    # form = AddUserForm
+    # permission_required = 'auth.add_user'
+    # User.objects.create_user(login=form.login, username=form.username, password=form.password)
+    # HttpResponse("udało sie")
 
-    def post(self, request, **kwargs):
-        login1 = request.POST.get("login", )
+    # def post(self, request, **kwargs):
+    #     login1 = request.POST.get("login", )
+    #     username = request.POST.get("username", )
+    #     password = request.POST.get("name", )
+    #     User.objects.create_user(login=login1, username=username, password=password)
+    #     return render("udało sie")
+
+    def get(self, request):
+        form = AddUserForm()
+        ctx = {'form': form}
+        return render(request, 'add_user.html', ctx)
+
+    def post(self, request):
+        user_login = request.POST.get("user_login", )
         username = request.POST.get("username", )
-        password = request.POST.get("name", )
-        User.objects.create(login=login1, username=username, password=password)
-        return render("udało sie")
-
+        password = request.POST.get("password", )
+        User.objects.create(user_login=user_login, username=username, password=password)
+        return redirect("user-list")
 
 # Login view
 class LoginView(FormView):

@@ -4,8 +4,8 @@ from django.db import models
 
 
 class User(models.Model):
-    login = models.CharField(max_length=16, default='login')
-    username = models.CharField(max_length=16, null=False)
+    user_login = models.CharField(max_length=16, default='login1')
+    username = models.CharField(max_length=16, null=False, default='username')
     password = models.CharField(max_length=16, null=False, default='pass')
 
 
@@ -18,6 +18,7 @@ class Auction(models.Model):
 
 class Offer(models.Model):
     text = models.TextField(max_length=256)
+    is_accepted = models.BooleanField(default=False)
 
 
 class Category(models.Model):

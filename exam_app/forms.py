@@ -23,7 +23,7 @@ class AuctionAddForm(forms.Form):
 
 
 class AddUserForm(forms.Form):
-    login = forms.CharField(max_length=16, label='login')
+    user_login = forms.CharField(max_length=16, label='user_login')
     username = forms.CharField(label='username')
     password = forms.CharField(max_length=128, widget=forms.PasswordInput, label='password')
     password2 = forms.CharField(max_length=128, widget=forms.PasswordInput)
@@ -56,6 +56,7 @@ class LoginForm(forms.Form):
             self.user = user
         else:
             raise ValidationError('Podaj poprawne dane')
+
 
 class UserListForm(forms.Form):
     login = forms.CharField(label='login')
