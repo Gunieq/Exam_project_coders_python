@@ -72,10 +72,9 @@ def check_admin(self, user):
 
 
 # View allowing to see all the users(admin only)
-
 class UserListView(FormView):
     template_name = 'user_list.html'
-    form_class = UserListForm
+    form_class = UserListForm()
     success_url = reverse_lazy('user-list')
 
     @user_passes_test(check_admin)
