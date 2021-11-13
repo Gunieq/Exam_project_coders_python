@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auction: {{ auction.name }}</title>
+</head>
+<body>
+    <h1>Użytkownik: {{ auction.user }}</h1>
+    <h2>Tytuł: {{ auction.name }}</h2>
+Data opublikowania aukcji:
+        {{ auction.start_date }}
+Data zakończenia aukcji:
+    {{ auction.end_date }}
+
+        <li>Usuń aukcję:
+        <a href="/auction/{{ auction.id }}/delete"> USUŃ </a>
+        </li>
+</body>
+</html>

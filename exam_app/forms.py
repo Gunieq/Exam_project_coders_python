@@ -6,20 +6,20 @@ User = get_user_model()
 
 
 CAT_CHOICES = {
-    ('RPG', 'RPG'),
-    ("FPS", "FPS"),
-    ("TPS", "TPS"),
-    ("Horror", "Horror"),
-    ("Platformer", "Platformer"),
+    (1, 'RPG'),
+    (2, "FPS"),
+    (3, "TPS"),
+    (4, "Horror"),
+    (5, "Platformer"),
 
 }
 
 
 class AuctionAddForm(forms.Form):
     name = forms.CharField(label="name")
-    end_date = forms.DateField(label="end_date")
-    product_desc = forms.CharField(label="product-desc")
-    product_cat = forms.ChoiceField(label="product-cat", choices=CAT_CHOICES)
+    end_date = forms.DateField(label="end date")
+    product_desc = forms.CharField(label="product description")
+    cat_name = forms.ChoiceField(label="category", choices=CAT_CHOICES)
 
 
 class AddUserForm(forms.Form):

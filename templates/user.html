@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User: {{ user.username }}</title>
+</head>
+<body>
+    <h1>Użytkownik: {{ user.username }}</h1>
+    <h2>Lista aukcji:</h2>
+        {% for auction in auctions %}
+            <a href='/auction/{{ auction.id }}'>{{ auction.name }}</a>
+        <li>Usuń aukcję:
+        <a href="/auction/{{ auction.id }}/delete"> USUŃ </a>
+        </li>
+    {% endfor %}
+
+
+
+</body>
+</html>

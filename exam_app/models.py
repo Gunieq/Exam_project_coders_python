@@ -4,7 +4,6 @@ from django.db import models
 
 
 class User(models.Model):
-    user_login = models.CharField(max_length=16, default='login1')
     username = models.CharField(max_length=16, null=False, default='username')
     password = models.CharField(max_length=16, null=False, default='pass')
 
@@ -22,10 +21,10 @@ class Offer(models.Model):
 
 
 class Category(models.Model):
-    name = models.TextField(max_length=16, default='cat')
+    name = models.TextField(max_length=16, null=True)
 
 
 class Product(models.Model):
-    description = models.TextField(max_length=256, default='desc')
-    auction = models.OneToOneField(Auction, on_delete=models.CASCADE, default=1, primary_key=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
+    description = models.TextField(max_length=256)
+    auction = models.OneToOneField(Auction, on_delete=models.CASCADE, primary_key=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
