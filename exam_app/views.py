@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import FormView
 
 from .forms import AuctionAddForm, AddUserForm, LoginForm, UserListForm
-from .models import Auction, Product
+from .models import Auction, Product, Message
 
 User = get_user_model()
 
@@ -50,12 +50,6 @@ class AuctionAddView(View):
         prod_desc = request.POST.get("prod_desc", )
         cat_name = request.POST.get('cat_name', )
         new_auction = Auction.objects.create(name=name, start_date=start_date, end_date=end_date)
-
-        # new_product = Product.objects.create(auction_id=new_auction.pk, description=prod_desc, category_id=category.pk)
-        ctx = {
-            'category': cat_name,
-            'new_auction': new_auction
-        }
         return redirect(reverse('auction-view', kwargs={'auction_id': new_auction.pk}))
 
 
@@ -71,6 +65,7 @@ class AddUserView(View):
         password = request.POST.get("password")
         User.objects.create(username=username, password=password)
         return redirect("user-list")
+
 
 # Login view
 class LoginView(FormView):
@@ -106,7 +101,8 @@ class UserView(View):
     def get(self, request, *args, **kwargs):
         user_id = kwargs['user_id']
         user = get_object_or_404(User, pk=user_id)
-        return render(request, 'user.html', {'user': user, 'auctions': Auction.objects.filter(user_id=user.pk)})
+        return render(request, 'user.html', {'user': user, 'auctions': Auction.objects.filter(user_id=user.pk),
+                                             'messages': Message.objects.filter(receiver=request.user.pk)})
 
 
 class DeleteAuctionView(View):
@@ -115,3 +111,16 @@ class DeleteAuctionView(View):
         auction = Auction.objects.get(id=auction_id)
         auction.delete()
         return HttpResponse('udaosie')
+
+
+class UserInboxView(View):
+    def get(self, request, **kwargs):
+        msg_id = kwargs['msg_id']
+        message = Message.objects.filter(receiver=request.user.pk, id=msg_id)
+        return render(request, 'inbox.html', {'message': message})
+
+
+class UserSentboxView(View):
+    def get(self, request, **kwargs):
+        message = Message.objects.filter(sender=request.user.pk)
+        return render(request, 'sendmsg.html', {'message': message})

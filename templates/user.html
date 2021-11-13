@@ -5,16 +5,21 @@
     <title>User: {{ user.username }}</title>
 </head>
 <body>
+<label>
     <h1>Użytkownik: {{ user.username }}</h1>
     <h2>Lista aukcji:</h2>
         {% for auction in auctions %}
             <a href='/auction/{{ auction.id }}'>{{ auction.name }}</a>
         <li>Usuń aukcję:
         <a href="/auction/{{ auction.id }}/delete"> USUŃ </a>
-        </li>
+
     {% endfor %}
-
-
-
+    <h2>Lista wiadomości:</h2>
+        {% for message in messages %}
+        <li><a href="/user/{{ user.id }}/inbox/{{ message.id }}"> Inbox </a></li>
+            <button type="button" onclick="location.href='/user/{{ user.id }}/inbox/{{ message.id }}'">Read</button>
+        {% endfor %}
+</label>
+   <li> <button type="button" onclick="location.href='/user/{{ user.id }}/sentbox/'">send msg</button></li>
 </body>
 </html>

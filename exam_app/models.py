@@ -28,3 +28,9 @@ class Product(models.Model):
     description = models.TextField(max_length=256)
     auction = models.OneToOneField(Auction, on_delete=models.CASCADE, primary_key=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, related_name="sender", on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name="receiver", on_delete=models.CASCADE)
+    msg_content = models.TextField(max_length=256)

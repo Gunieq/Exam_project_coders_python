@@ -11,7 +11,6 @@ CAT_CHOICES = {
     (3, "TPS"),
     (4, "Horror"),
     (5, "Platformer"),
-
 }
 
 

@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from exam_app.views import AuctionListView, AuctionAddView, AddUserView, LoginView, UserListView, AuctionView, UserView,\
-    DeleteAuctionView
+from exam_app.views import AuctionListView, AuctionAddView, AddUserView, LoginView, UserListView, AuctionView, UserView, \
+    DeleteAuctionView, UserInboxView, UserSentboxView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,8 @@ urlpatterns = [
     path('userlist/', UserListView.as_view(), name='user-list'),
     path('auction/<int:auction_id>/', AuctionView.as_view(), name='auction-view'),
     path('user/<int:user_id>/', UserView.as_view(), name='user-view'),
+    path('user/<int:user_id>/inbox/<int:msg_id>', UserInboxView.as_view(), name='user-inbox-view'),
+    path('user/<int:user_id>/sentbox/', UserSentboxView.as_view(), name='user-sentbox-view'),
     path('auction/<int:auction_id>/delete', DeleteAuctionView.as_view(), name='delete-auction'),
 
 ]
