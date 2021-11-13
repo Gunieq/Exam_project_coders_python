@@ -124,3 +124,10 @@ class UserSentboxView(View):
     def get(self, request, **kwargs):
         message = Message.objects.filter(sender=request.user.pk)
         return render(request, 'sendmsg.html', {'message': message})
+
+    def post(self, request, *args, **kwargs):
+        receiver = request.POST.get('receiver')
+        message_content = request.POST.get('message')
+        sender = Message.objects.filter(sender=request.user.pk)
+        new_message = Message.objects.create(sender=sender, receiver=receiver, msg_content=message_content)
+        return HttpResponse('udaosie')

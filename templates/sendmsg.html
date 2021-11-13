@@ -5,7 +5,12 @@
     <title>Messagebox:</title>
 </head>
 <body>
-<input type="text">
+<form action="" method="post">
+            {% csrf_token %}
+
+Podaj użytkownika:<input type="text" id="receiver" name="receiver" required minlength="1" maxlength="16" size="10">
+    Wiadomość:<input type="text" id="message" name="message">
 <input type="submit" value="wyślij">
+</form>
 </body>
 </html>
