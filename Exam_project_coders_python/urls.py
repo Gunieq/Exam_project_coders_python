@@ -29,6 +29,6 @@ urlpatterns = [
     path('user/<int:user_id>/', UserView.as_view(), name='user-view'),
     path('user/<int:user_id>/inbox/<int:msg_id>', UserInboxView.as_view(), name='user-inbox-view'),
     path('user/<int:user_id>/sentbox/', UserSentboxView.as_view(), name='user-sentbox-view'),
-    path('auction/<int:auction_id>/delete', DeleteAuctionView.as_view(), name='delete-auction'),
+    path('auction/<int:user_id>/<int:auction_id>/delete', DeleteAuctionView.as_view(), name='delete-auction'),
 
 ]

@@ -2,6 +2,8 @@ from datetime import datetime
 
 import username
 from django.contrib.auth import get_user_model, login
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
@@ -32,7 +34,7 @@ class AuctionView(View):
         product = Product.objects.filter(auction_id=auction)
         ctx = {
             'auction': auction,
-            'product': product
+            'product': product,
         }
         return render(request, 'auction.html', ctx)
 
@@ -108,10 +110,17 @@ class UserView(View):
 
 class DeleteAuctionView(View):
     def get(self, request, **kwargs):
+        user_id = kwargs['user_id']
         auction_id = kwargs['auction_id']
+        user_from_auct = user_id
         auction = Auction.objects.get(id=auction_id)
-        auction.delete()
-        return HttpResponse('udaosie')
+        # auction.delete()
+        # return HttpResponse('udaosie')
+        if user_id == user_from_auct:
+            auction.delete()
+            return HttpResponse('udaosie')
+        else:
+            return HttpResponse('nie udalo sie')
 
 
 class UserInboxView(View):

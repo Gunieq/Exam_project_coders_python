@@ -11,7 +11,7 @@
         {% for auction in auctions %}
             <li><a href='/auction/{{ auction.id }}'>{{ auction.name }}</a></li>
         <li>Usuń aukcję:
-        <a href="/auction/{{ auction.id }}/delete"> USUŃ </a>
+        <a href="/auction/{{ user.id }}/{{ auction.id }}/delete"> USUŃ </a>
 
     {% endfor %}
     <h2>Lista wiadomości:</h2>
