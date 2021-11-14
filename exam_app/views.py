@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import username
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -11,9 +10,9 @@ from django.views import View
 from django.views.generic import FormView
 
 from .forms import AuctionAddForm, AddUserForm, LoginForm, UserListForm
-from .models import Auction, Product, Message
+from .models import Auction, Product, Message, User
 
-User = get_user_model()
+# User = get_user_model()
 
 
 # View which allows to see all auction listed on the website
@@ -139,7 +138,7 @@ class UserSentboxView(View):
         receiver = request.POST.get('receiver')
         message_content = request.POST.get('message')
         sender_id = kwargs['user_id']
-        sender = User.objects.filter(id=sender_id)
-        a = Message.objects.create(sender=sender, receiver=receiver, msg_content=message_content)
+        sender = get_object_or_404(User, pk=sender_id)
+        a = Message.objects.create(sender=sender, receiver_id=receiver, msg_content=message_content)
         a.save()
         return HttpResponse('udaosie')
