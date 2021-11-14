@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import username
 from django.contrib.auth import get_user_model, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -128,6 +129,8 @@ class UserSentboxView(View):
     def post(self, request, *args, **kwargs):
         receiver = request.POST.get('receiver')
         message_content = request.POST.get('message')
-        sender = Message.objects.filter(sender=request.user.pk)
-        new_message = Message.objects.create(sender=sender, receiver=receiver, msg_content=message_content)
+        sender_id = kwargs['user_id']
+        sender = User.objects.filter(id=sender_id)
+        a = Message.objects.create(sender=sender, receiver=receiver, msg_content=message_content)
+        a.save()
         return HttpResponse('udaosie')
